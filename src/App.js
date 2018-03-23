@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import QRCode from 'qrcode';
+
 import './App.css';
 
 class App extends Component {
@@ -14,7 +16,11 @@ class App extends Component {
     }
 
     onTextChange(e) {
-        this.setState({text: e.target.value});
+        let text = e.target.value;
+        this.setState({text});
+        QRCode.toDataURL(text, (err, url) => {
+            this.setState({qrcode: url});
+        });
     }
 
     render() {
