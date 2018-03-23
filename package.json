@@ -1,0 +1,10 @@
+{
+  "name": "qr-code-generator",
+  "version": "0.1.0",
+  "description": "for food-chain-menu",
+  "main": "index.js",
+  "repository": "https://htbkoo@bitbucket.org/foodchainmenu/qrcodegenerator.git",
+  "author": "htbkoo <h1017760@connect.hku.hk>",
+  "license": "UNLICENSED",
+  "private": true
+}
