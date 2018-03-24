@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import QRCode from 'qrcode';
 import RaisedButton from 'material-ui/RaisedButton';
 import AppBar from 'material-ui/AppBar';
 
@@ -17,21 +16,19 @@ class OrderPlacer extends Component {
         this.state = {
             text: "",
             qrcode: "",
-            appTitle,
-            // payUrl: `${hostname}${colonPortNumber}/${endpoint}`
-            payUrl: `${orderEndPoint}`,
+            appTitle
+        };
 
-            order: {
-                'table_id': "",
-                'foods': [
-                    {
-                        'food_id': "",
-                        'qty': 0,
-                        'price': 0,
-                        'remark': ""
-                    }
-                ]
-            }
+        this.order = {
+            'table_id': "",
+            'foods': [
+                {
+                    'food_id': "",
+                    'qty': 0,
+                    'price': 0,
+                    'remark': ""
+                }
+            ]
         };
 
         this.onTextChange = this.onTextChange.bind(this);
@@ -42,9 +39,8 @@ class OrderPlacer extends Component {
     }
 
     onPayClick() {
-        this.setTableId("1234");
-        // this.promisePostOrder()
-        this.mockPromisePostOrder()
+        this.promisePostOrder()
+        // this.mockPromisePostOrder()
             .then(value => {
                 console.log(value);
             })
@@ -65,7 +61,7 @@ class OrderPlacer extends Component {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
             },
-            body: this.state.order,
+            body: JSON.stringify(this.order),
             cache: 'default'
         };
         return fetch(orderEndPoint, options);
@@ -74,13 +70,11 @@ class OrderPlacer extends Component {
     onTextChange(e) {
         let text = e.target.value;
         this.setState({text});
-        QRCode.toDataURL(text, (err, url) => {
-            this.setState({qrcode: url});
-        });
+        this.setTableId(text);
     }
 
     setTableId(table_id) {
-        this.setState({order: Object.assign({}, this.state.order, {table_id})});
+        this.order.table_id = table_id;
     }
 
     render() {
