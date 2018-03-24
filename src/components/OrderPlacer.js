@@ -20,15 +20,11 @@ class OrderPlacer extends Component {
         };
 
         this.order = {
-            'table_id': "",
-            'foods': [
-                {
-                    'food_id': "",
-                    'qty': 0,
-                    'price': 0,
-                    'remark': ""
-                }
-            ]
+            table_id: "",
+            foods: {
+                all_food_ids: [],
+                foods_details: {}
+            }
         };
 
         this.onTextChange = this.onTextChange.bind(this);
@@ -36,6 +32,7 @@ class OrderPlacer extends Component {
         this.promisePostOrder = this.promisePostOrder.bind(this);
         this.mockPromisePostOrder = this.mockPromisePostOrder.bind(this);
         this.setTableId = this.setTableId.bind(this);
+        this.addFood = this.addFood.bind(this);
     }
 
     onPayClick() {
@@ -75,6 +72,23 @@ class OrderPlacer extends Component {
 
     setTableId(table_id) {
         this.order.table_id = table_id;
+    }
+
+    addFood(food_id, price, remark) {
+        if (food_id in this.order.foods.foods_details) {
+            this.order.foods.foods_details.qty++;
+            if (typeof remark !== "undefined") {
+                this.order.foods.foods_details.remark = remark;
+            }
+        } else {
+            this.order.foods.foods_details[food_id] = {
+                food_id,
+                qty: 1,
+                price,
+                remark
+            };
+            this.order.foods.all_food_ids.push(food_id);
+        }
     }
 
     render() {
