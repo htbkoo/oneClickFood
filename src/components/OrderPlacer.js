@@ -1,21 +1,15 @@
 import React, {Component} from 'react';
 import QRCode from 'qrcode';
 import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
 import AppBar from 'material-ui/AppBar';
 
 import '../css/OrderPlacer.css';
 import FooterBar from "./FooterBar";
+import QrCodeScanner from "./QrCodeScanner";
 
-const QrCodeScanner = props => (
-    <div>
-        <TextField
-            value={props.text}
-            onChange={props.onTextChange}
-            floatingLabelText="Text to transform"
-        />
-    </div>
-);
+const hostname = "localhost";
+const endpoint = "order";
+const appTitle = "One Click Food";
 
 class OrderPlacer extends Component {
     constructor(props) {
@@ -23,13 +17,26 @@ class OrderPlacer extends Component {
 
         this.state = {
             text: "",
-            qrcode: ""
+            qrcode: "",
+            appTitle,
+            payUrl: `${hostname}/${endpoint}`
         };
 
+        this.onTextChange = this.onTextChange.bind(this);
         this.onPayClick = this.onPayClick.bind(this);
     }
 
-    onPayClick(e) {
+    onPayClick() {
+        fetch(this.state.payUrl)
+            .then(value => {
+
+            })
+            .catch(error => {
+                console.log(`Error caught: ${JSON.stringify(error)}!`);
+            });
+    }
+
+    onTextChange(e) {
         let text = e.target.value;
         this.setState({text});
         QRCode.toDataURL(text, (err, url) => {
@@ -42,15 +49,14 @@ class OrderPlacer extends Component {
             <div className="OrderPlacer">
                 <div className="app-bar">
                     <AppBar
-                        title="Food Chain Menu"
+                        title={this.state.appTitle}
                         iconClassNameRight="muidocs-icon-navigation-expand-more"
                     />
                 </div>
                 <div className="app-body">
                     <form>
                         <div className="input-text">
-                            <QrCodeScanner text="" onTextChange={() => {
-                            }}/>
+                            <QrCodeScanner text={this.state.text} onTextChange={this.onTextChange}/>
                         </div>
                     </form>
                 </div>
@@ -58,7 +64,7 @@ class OrderPlacer extends Component {
                     <div className="payButton">
                         <RaisedButton label="Proceed to pay" primary={true} onClick={this.onPayClick}/>
                     </div>
-                    <FooterBar />
+                    <FooterBar/>
                 </div>
             </div>
         );
