@@ -35,6 +35,8 @@ class App extends Component {
         this.setTableId = this.setTableId.bind(this);
         this.addFood = this.addFood.bind(this);
         this.onSelectPage = this.onSelectPage.bind(this);
+        this.onQrScan = this.onQrScan.bind(this);
+        this.onQrError = this.onQrError.bind(this);
     }
 
     onSelectPage(index) {
@@ -97,12 +99,23 @@ class App extends Component {
         }
     }
 
+    onQrScan(data) {
+        if (data) {
+            this.setState({selectedPage: 0});
+            console.log(data);
+        }
+    }
+
+    onQrError(err) {
+        console.error(err);
+    }
+
     render() {
         let appBody;
 
         switch (this.state.selectedPage) {
             case 1:
-                appBody = <QrCodeScanner onTextChange/>;
+                appBody = <QrCodeScanner onQrScan={this.onQrScan} onQrError={this.onQrError}/>;
                 break;
             default:
                 appBody = <OrderPlacer/>;

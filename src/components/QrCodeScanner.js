@@ -1,46 +1,28 @@
-import React, {Component} from 'react';
-import TextField from 'material-ui/TextField';
+import React from 'react';
 import QrReader from 'react-qr-scanner';
 
-class QrCodeScanner extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            delay: 100,
-            result: 'No result',
-        }
+import '../css/QrCodeScanner.css';
 
-        this.handleScan = this.handleScan.bind(this)
-    }
+const delay = 100;
 
-    handleScan(data) {
-        this.setState({
-            result: data,
-        })
-    }
+const previewStyle = {
+    maxHeight: "50%",
+    maxWidth: "90%",
+    display: "initial",
+    padding: "1%"
+};
 
-    handleError(err) {
-        console.error(err)
-    }
-
-    render() {
-        const previewStyle = {
-            height: 240,
-            width: 320,
-        }
-
-        return (
-            <div>
-                <QrReader
-                    delay={this.state.delay}
-                    style={previewStyle}
-                    onError={this.handleError}
-                    onScan={this.handleScan}
-                />
-                <p>{this.state.result}</p>
-            </div>
-        )
-    }
-}
+const QrCodeScanner = props => (
+    <div className="QrCodeScanner">
+        <QrReader
+            delay={delay}
+            style={previewStyle}
+            // legacyMode={true}
+            maxImageSize={300}
+            onError={props.onQrError}
+            onScan={props.onQrScan}
+        />
+    </div>
+);
 
 export default QrCodeScanner;
