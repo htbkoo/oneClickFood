@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import QRCode from 'qrcode';
 
-import './App.css';
+import './css/App.css';
 
 class App extends Component {
     constructor(props) {
