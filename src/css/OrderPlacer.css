@@ -1,11 +1,3 @@
 .OrderPlacer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    overflow-y: hidden;
-}
 
-.payButton {
-    margin: 2%;
 }

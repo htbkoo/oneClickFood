@@ -1,13 +1,9 @@
 import React, {Component} from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
-import AppBar from 'material-ui/AppBar';
 
 import '../css/OrderPlacer.css';
-import FooterBar from "./FooterBar";
 import QrCodeScanner from "./QrCodeScanner";
 
 const orderEndPoint = "order";
-const appTitle = "One Click Food";
 
 class OrderPlacer extends Component {
     constructor(props) {
@@ -16,7 +12,6 @@ class OrderPlacer extends Component {
         this.state = {
             text: "",
             qrcode: "",
-            appTitle
         };
 
         this.order = {
@@ -94,25 +89,11 @@ class OrderPlacer extends Component {
     render() {
         return (
             <div className="OrderPlacer">
-                <div className="app-bar">
-                    <AppBar
-                        title={this.state.appTitle}
-                        iconClassNameRight="muidocs-icon-navigation-expand-more"
-                    />
-                </div>
-                <div className="app-body">
-                    <form>
-                        <div className="input-text">
-                            <QrCodeScanner text={this.state.text} onTextChange={this.onTextChange}/>
-                        </div>
-                    </form>
-                </div>
-                <div className="app-footer">
-                    <div className="payButton">
-                        <RaisedButton label="Proceed to pay" primary={true} onClick={this.onPayClick}/>
+                <form>
+                    <div className="input-text">
+                        <QrCodeScanner text={this.state.text} onTextChange={this.onTextChange}/>
                     </div>
-                    <FooterBar/>
-                </div>
+                </form>
             </div>
         );
     }
