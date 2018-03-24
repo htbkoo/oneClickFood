@@ -10,6 +10,30 @@ import QrCodeScanner from "./components/QrCodeScanner";
 const appTitle = "One Click Food";
 const orderEndPoint = "order";
 
+const parseScanData = rawData => {
+    try {
+        let data = JSON.parse(rawData);
+        if (hasMandatoryData(data)) {
+            return {
+                isValid: true,
+                data
+            };
+        } else {
+            return {isValid: false, data};
+        }
+    } catch (error) {
+        console.log(error);
+        return {isValid: false};
+    }
+
+    function hasMandatoryData(data) {
+        return [
+            "food_id",
+            "price"
+        ].every(field => (field in data));
+    }
+};
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -19,6 +43,15 @@ class App extends Component {
             text: "",
             appTitle
         };
+
+        /*
+		{
+			'food_id': x,
+			'qty': x,
+			'price': x,
+			'remark': x
+		}
+        * */
 
         this.order = {
             table_id: "",
@@ -101,11 +134,16 @@ class App extends Component {
 
     onQrScan(data) {
         if (data) {
-            this.setState({selectedPage: 0});
+            let parsedData = parseScanData(data);
+            if (parsedData.isValid) {
+                this.addFood(parsedData.data.food_id, parsedData.data.price, "");
+                this.setState({selectedPage: 0});
+            }
             console.log(data);
         }
     }
 
+    // noinspection JSMethodCanBeStatic
     onQrError(err) {
         console.error(err);
     }
