@@ -7,8 +7,7 @@ import '../css/OrderPlacer.css';
 import FooterBar from "./FooterBar";
 import QrCodeScanner from "./QrCodeScanner";
 
-const hostname = "localhost";
-const endpoint = "order";
+const orderEndPoint = "order";
 const appTitle = "One Click Food";
 
 class OrderPlacer extends Component {
@@ -19,21 +18,57 @@ class OrderPlacer extends Component {
             text: "",
             qrcode: "",
             appTitle,
-            payUrl: `${hostname}/${endpoint}`
+            // payUrl: `${hostname}${colonPortNumber}/${endpoint}`
+            payUrl: `${orderEndPoint}`,
+
+            order: {
+                'table_id': "",
+                'foods': [
+                    {
+                        'food_id': "",
+                        'qty': 0,
+                        'price': 0,
+                        'remark': ""
+                    }
+                ]
+            }
         };
 
         this.onTextChange = this.onTextChange.bind(this);
         this.onPayClick = this.onPayClick.bind(this);
+        this.promisePostOrder = this.promisePostOrder.bind(this);
+        this.mockPromisePostOrder = this.mockPromisePostOrder.bind(this);
+        this.setTableId = this.setTableId.bind(this);
     }
 
     onPayClick() {
-        fetch(this.state.payUrl)
+        this.setTableId("1234");
+        // this.promisePostOrder()
+        this.mockPromisePostOrder()
             .then(value => {
-
+                console.log(value);
             })
-            .catch(error => {
-                console.log(`Error caught: ${JSON.stringify(error)}!`);
+            .catch(reason => {
+                console.log(`Error caught: ${reason}`);
             });
+    }
+
+    // noinspection JSMethodCanBeStatic
+    mockPromisePostOrder() {
+        return Promise.resolve("done");
+    }
+
+    promisePostOrder() {
+        let options = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: this.state.order,
+            cache: 'default'
+        };
+        return fetch(orderEndPoint, options);
     }
 
     onTextChange(e) {
@@ -42,6 +77,10 @@ class OrderPlacer extends Component {
         QRCode.toDataURL(text, (err, url) => {
             this.setState({qrcode: url});
         });
+    }
+
+    setTableId(table_id) {
+        this.setState({order: Object.assign({}, this.state.order, {table_id})});
     }
 
     render() {
