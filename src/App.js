@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import QRCode from 'qrcode';
+import TextField from 'material-ui/TextField';
 
 import './css/App.css';
 
@@ -28,11 +29,11 @@ class App extends Component {
             <div className="App">
                 <div className="input-text">
                     <form>
-                        <label>
-                            Text to transform:
-                            <input type="text" name="text" value={this.state.text}
-                                   onChange={this.onTextChange}/>
-                        </label>
+                        <TextField
+                            value={this.state.text}
+                            onChange={this.onTextChange}
+                            floatingLabelText="Text to transform"
+                        />
                     </form>
                 </div>
                 <div className="qrcode">
