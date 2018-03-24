@@ -38,12 +38,6 @@ class App extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            selectedPage: 1,
-            text: "",
-            appTitle
-        };
-
         /*
 		{
 			'food_id': x,
@@ -51,13 +45,17 @@ class App extends Component {
 			'price': x,
 			'remark': x
 		}
-        * */
-
-        this.order = {
-            table_id: "",
-            foods: {
-                all_food_ids: [],
-                foods_details: {}
+		*/
+        this.state = {
+            selectedPage: 1,
+            text: "",
+            appTitle,
+            order: {
+                table_id: "",
+                foods: {
+                    all_food_ids: [],
+                    foods_details: {}
+                }
             }
         };
 
@@ -99,7 +97,7 @@ class App extends Component {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(this.order),
+            body: JSON.stringify(this.state.order),
             cache: 'default'
         };
         return fetch(orderEndPoint, options);
@@ -112,24 +110,28 @@ class App extends Component {
     }
 
     setTableId(table_id) {
-        this.order.table_id = table_id;
+        let order = this.state.order;
+        order.table_id = table_id;
+        this.setState({order});
     }
 
     addFood(food_id, price, remark) {
-        if (food_id in this.order.foods.foods_details) {
-            this.order.foods.foods_details.qty++;
+        let order = this.state.order;
+        if (food_id in order.foods.foods_details) {
+            order.foods.foods_details.qty++;
             if (typeof remark !== "undefined") {
-                this.order.foods.foods_details.remark = remark;
+                order.foods.foods_details.remark = remark;
             }
         } else {
-            this.order.foods.foods_details[food_id] = {
+            order.foods.foods_details[food_id] = {
                 food_id,
                 qty: 1,
                 price,
                 remark
             };
-            this.order.foods.all_food_ids.push(food_id);
+            order.foods.all_food_ids.push(food_id);
         }
+        this.setState({order});
     }
 
     onQrScan(data) {
