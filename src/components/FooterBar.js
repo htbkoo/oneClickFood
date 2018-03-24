@@ -25,17 +25,17 @@ class FooterBar extends Component {
             <Paper zDepth={1}>
                 <BottomNavigation selectedIndex={this.state.selectedIndex}>
                     <BottomNavigationItem
-                        label="Recents"
+                        label="Orders"
                         icon={recentsIcon}
                         onClick={() => this.select(0)}
                     />
                     <BottomNavigationItem
-                        label="Favorites"
+                        label="Scan New"
                         icon={favoritesIcon}
                         onClick={() => this.select(1)}
                     />
                     <BottomNavigationItem
-                        label="Nearby"
+                        label="Recommendation"
                         icon={nearbyIcon}
                         onClick={() => this.select(2)}
                     />
