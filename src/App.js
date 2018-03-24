@@ -8,13 +8,14 @@ import './css/App.css';
 import QrCodeScanner from "./components/QrCodeScanner";
 
 const appTitle = "One Click Food";
+const orderEndPoint = "order";
 
 class App extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            selectedPage: 0,
+            selectedPage: 1,
             text: "",
             appTitle
         };
@@ -101,7 +102,7 @@ class App extends Component {
 
         switch (this.state.selectedPage) {
             case 1:
-                appBody = <QrCodeScanner/>;
+                appBody = <QrCodeScanner onTextChange/>;
                 break;
             default:
                 appBody = <OrderPlacer/>;

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import TextField from 'material-ui/TextField';
 import QrReader from 'react-qr-scanner';
 
-class Test extends Component {
+class QrCodeScanner extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -42,15 +42,5 @@ class Test extends Component {
         )
     }
 }
-
-const QrCodeScanner = props => (
-    <div>
-        <TextField
-            value={props.text}
-            onChange={props.onTextChange}
-            floatingLabelText="Text to transform"
-        />
-    </div>
-);
 
 export default QrCodeScanner;
