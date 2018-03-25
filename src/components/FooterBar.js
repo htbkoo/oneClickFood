@@ -28,7 +28,7 @@ const FooterBar = props => (
                 onClick={() => props.confirmed ? "" : props.onSelectPage(1)}
             />
             <BottomNavigationItem
-                label="Confirmation"
+                label="Receipt"
                 icon={favoritesIcon}
                 disabled
             />
