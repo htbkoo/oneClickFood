@@ -146,7 +146,9 @@ class App extends Component {
     }
 
     onAdd(food_id){
-
+        let order = this.state.order;
+        order.foods.foods_details[food_id].qty++;
+        this.setState({order});
     }
 
     onSubtract(food_id){
