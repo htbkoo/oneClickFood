@@ -6,7 +6,7 @@ import '../css/QrCodeScanner.css';
 const delay = 100;
 
 const previewStyle = {
-    maxHeight: "50%",
+    maxHeight: "50vh",
     maxWidth: "90%",
     display: "initial",
     padding: "1%"
