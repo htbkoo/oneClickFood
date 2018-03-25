@@ -83,7 +83,7 @@ class App extends Component {
         this.mockPromisePostOrder()
             .then(value => {
                 console.log(value);
-                this.setState({confirmed: true});
+                this.setState({selectedPage: 2});
             })
             .catch(reason => {
                 console.log(`Error caught: ${reason}`);
@@ -158,7 +158,8 @@ class App extends Component {
     render() {
         let appBody;
         let orders = this.state.order.foods.all_food_ids.map(id => this.state.order.foods.foods_details[id]);
-        let optionalPayButton = this.state.confirmed ? "" : (
+        let confirmed = this.state.confirmed;
+        let optionalPayButton = confirmed ? "" : (
             <div className="payButton">
                 <RaisedButton label="Proceed to pay" primary={true} onClick={this.onPayClick}/>
             </div>
@@ -169,8 +170,9 @@ class App extends Component {
                 appBody = <QrCodeScanner onQrScan={this.onQrScan} onQrError={this.onQrError} text={this.state.text}/>;
                 break;
             case 0:
+            case 2:
             default:
-                appBody = <OrderPlacer orders={orders} tableInfo={this.tableInfo}/>;
+                appBody = <OrderPlacer orders={orders} tableInfo={this.tableInfo} confirmed={confirmed}/>;
         }
 
         return (
@@ -186,7 +188,7 @@ class App extends Component {
                 </div>
                 <div className="app-footer">
                     {optionalPayButton}
-                    <FooterBar onSelectPage={this.onSelectPage} selectedPage={this.state.selectedPage}/>
+                    <FooterBar onSelectPage={this.onSelectPage} selectedPage={this.state.selectedPage} confirmed={confirmed}/>
                 </div>
             </div>
         );

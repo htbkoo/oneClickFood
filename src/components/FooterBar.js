@@ -20,12 +20,12 @@ const FooterBar = props => (
             <BottomNavigationItem
                 label="Your Orders"
                 icon={recentsIcon}
-                onClick={() => props.onSelectPage(0)}
+                onClick={() => props.confirmed ? "" : props.onSelectPage(0)}
             />
             <BottomNavigationItem
                 label="Scan New"
                 icon={nearbyIcon}
-                onClick={() => props.onSelectPage(1)}
+                onClick={() => props.confirmed ? "" : props.onSelectPage(1)}
             />
             <BottomNavigationItem
                 label="Confirmation"
