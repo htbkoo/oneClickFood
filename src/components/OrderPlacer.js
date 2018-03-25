@@ -7,6 +7,7 @@ import Divider from 'material-ui/Divider';
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import AddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline';
 import RemoveCircleOutline from 'material-ui/svg-icons/content/remove-circle-outline';
+import IconButton from 'material-ui/IconButton';
 
 import '../css/OrderPlacer.css';
 
@@ -30,6 +31,16 @@ const RestaurantInfoHeader = props => (
     </div>
 );
 
+const AddButton = () => (
+    <IconButton
+        touch={true}
+        tooltip="more"
+        tooltipPosition="bottom-left"
+    >
+        <AddCircleOutline/>
+    </IconButton>
+);
+
 /*
 {
     'food_id': x,
@@ -38,10 +49,11 @@ const RestaurantInfoHeader = props => (
     'remark': x
 }
 */
+
 const Order = ({order}) => (
     <ListItem primaryText={order.food_id} secondaryText={`Quantity: ${order.qty}, Price: ${order.price}`}
               leftIcon={<RemoveCircleOutline/>}
-              rightIcon={<AddCircleOutline/>}
+              rightIconButton={<AddButton/>}
     />
 );
 const ConfirmedOrder = ({order}) => (
