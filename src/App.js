@@ -54,6 +54,7 @@ class App extends Component {
         this.state = {
             selectedPage: 1,
             text: "",
+            confirmed: false,
             order: {
                 table_id: JSON.stringify(this.tableInfo),
                 foods: {
@@ -78,10 +79,11 @@ class App extends Component {
     }
 
     onPayClick() {
-        this.promisePostOrder()
-        // this.mockPromisePostOrder()
+        // this.promisePostOrder()
+        this.mockPromisePostOrder()
             .then(value => {
                 console.log(value);
+                this.setState({confirmed: true});
             })
             .catch(reason => {
                 console.log(`Error caught: ${reason}`);
@@ -156,6 +158,11 @@ class App extends Component {
     render() {
         let appBody;
         let orders = this.state.order.foods.all_food_ids.map(id => this.state.order.foods.foods_details[id]);
+        let optionalPayButton = this.state.confirmed ? "" : (
+            <div className="payButton">
+                <RaisedButton label="Proceed to pay" primary={true} onClick={this.onPayClick}/>
+            </div>
+        );
 
         switch (this.state.selectedPage) {
             case 1:
@@ -178,9 +185,7 @@ class App extends Component {
                     {appBody}
                 </div>
                 <div className="app-footer">
-                    <div className="payButton">
-                        <RaisedButton label="Proceed to pay" primary={true} onClick={this.onPayClick}/>
-                    </div>
+                    {optionalPayButton}
                     <FooterBar onSelectPage={this.onSelectPage} selectedPage={this.state.selectedPage}/>
                 </div>
             </div>
