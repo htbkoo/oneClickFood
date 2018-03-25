@@ -162,7 +162,7 @@ class App extends Component {
         let confirmed = this.state.selectedPage===2;
         let optionalPayButton = confirmed ? "" : (
             <div className="payButton">
-                <RaisedButton label="Proceed to pay" primary={true} onClick={this.onPayClick}/>
+                <RaisedButton label="Confirm" primary={true} onClick={this.onPayClick}/>
             </div>
         );
 
