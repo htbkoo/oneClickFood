@@ -24,13 +24,13 @@ const FooterBar = props => (
             />
             <BottomNavigationItem
                 label="Scan New"
-                icon={favoritesIcon}
+                icon={nearbyIcon}
                 onClick={() => props.onSelectPage(1)}
             />
             <BottomNavigationItem
-                label="Recommendation"
-                icon={nearbyIcon}
-                onClick={() => props.onSelectPage(2)}
+                label="Confirmation"
+                icon={favoritesIcon}
+                disabled
             />
         </BottomNavigation>
     </Paper>

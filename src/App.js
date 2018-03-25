@@ -161,6 +161,7 @@ class App extends Component {
             case 1:
                 appBody = <QrCodeScanner onQrScan={this.onQrScan} onQrError={this.onQrError} text={this.state.text}/>;
                 break;
+            case 0:
             default:
                 appBody = <OrderPlacer orders={orders} tableInfo={this.tableInfo}/>;
         }
