@@ -51,7 +51,7 @@ class App extends Component {
             text: "",
             appTitle,
             order: {
-                table_id: "",
+                table_id: props.table_id,
                 foods: {
                     all_food_ids: [],
                     foods_details: {}
@@ -158,7 +158,7 @@ class App extends Component {
                 appBody = <QrCodeScanner onQrScan={this.onQrScan} onQrError={this.onQrError}/>;
                 break;
             default:
-                appBody = <OrderPlacer/>;
+                appBody = <OrderPlacer order={this.state.order}/>;
         }
 
         return (
