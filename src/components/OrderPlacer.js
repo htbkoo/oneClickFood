@@ -31,13 +31,13 @@ const RestaurantInfoHeader = props => (
     </div>
 );
 
-const SubtractButton = onClick => (
+const SubtractButton = ({onClick}) => (
     <IconButton touch={true} onClick={onClick}>
         <RemoveCircleOutline/>
     </IconButton>
 );
 
-const AddButton = onClick => (
+const AddButton = ({onClick}) => (
     <IconButton touch={true} onClick={onClick}>
         <AddCircleOutline/>
     </IconButton>
