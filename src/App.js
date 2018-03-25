@@ -154,13 +154,14 @@ class App extends Component {
 
     render() {
         let appBody;
+        let orders = this.state.order.foods.all_food_ids.map(id => this.state.order.foods.foods_details[id]);
 
         switch (this.state.selectedPage) {
             case 1:
                 appBody = <QrCodeScanner onQrScan={this.onQrScan} onQrError={this.onQrError}/>;
                 break;
             default:
-                appBody = <OrderPlacer order={this.state.order} tableInfo={this.tableInfo}/>;
+                appBody = <OrderPlacer orders={orders} tableInfo={this.tableInfo}/>;
         }
 
         return (

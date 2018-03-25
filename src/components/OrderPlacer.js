@@ -25,62 +25,50 @@ const RestaurantInfoHeader = props => (
             </CardMedia>
             <CardTitle title="Your order:" subtitle=""/>
             <CardText>
-                <List>
-                    <ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
-                    <ListItem primaryText="Starred" leftIcon={<ActionGrade />} />
-                    <ListItem primaryText="Sent mail" leftIcon={<ContentSend />} />
-                    <ListItem primaryText="Drafts" leftIcon={<ContentDrafts />} />
-                    <ListItem primaryText="Inbox" leftIcon={<ContentInbox />} />
-                </List>
-                <Divider />
-                <List>
-                    <ListItem primaryText="All mail" rightIcon={<ActionInfo />} />
-                    <ListItem primaryText="Trash" rightIcon={<ActionInfo />} />
-                    <ListItem primaryText="Spam" rightIcon={<ActionInfo />} />
-                    <ListItem primaryText="Follow up" rightIcon={<ActionInfo />} />
-                </List>
+                <Orders orders={props.orders}/>
+                <Divider/>
+                <TotalAmount orders={props.orders}/>
             </CardText>
         </Card>
     </div>
 );
 
-const Topic = ({match}) => (
-    <div>
-        <h3>{match.params.topicId}</h3>
-    </div>
+/*
+{
+    'food_id': x,
+    'qty': x,
+    'price': x,
+    'remark': x
+}
+*/
+const Order = ({order}) => (
+    <ListItem primaryText="Inbox" leftIcon={<ContentInbox/>}/>
 );
 
-const Topics = ({match}) => (
-    <div>
-        <h2>Topics</h2>
-        <ul>
-            <li>
-                <Link to={`${match.url}/rendering`}>
-                    Rendering with React
-                </Link>
-            </li>
-            <li>
-                <Link to={`${match.url}/components`}>
-                    Components
-                </Link>
-            </li>
-            <li>
-                <Link to={`${match.url}/props-v-state`}>
-                    Props v. State
-                </Link>
-            </li>
-        </ul>
+const Orders = ({orders}) => {
+    let orderComponents = orders.map(order => (
+        <Order order={order}/>
+    ));
+    return (
+        <List>
+            {orderComponents}
+        </List>
+    );
+};
 
-        <Route path={`${match.path}/:topicId`} component={Topic}/>
-        <Route exact path={match.path} render={() => (
-            <h3>Please select a topic.</h3>
-        )}/>
-    </div>
-);
+const TotalAmount = ({orders}) => {
+    let totalAmount = orders.reduce((amount, order) => amount + order.qty * order.price, 0);
+    return (
+        <List>
+            <ListItem primaryText={`\$${totalAmount}`} secondaryText="Total" rightIcon={<ActionInfo/>}/>
+        </List>
+    );
+};
 
 const OrderPlacer = ({tableInfo, orders}) => (
     <div className="OrderPlacer">
-        <RestaurantInfoHeader restaurantName={tableInfo.restaurantName} tableNumber={tableInfo.tableNumber}/>
+        <RestaurantInfoHeader restaurantName={tableInfo.restaurantName} tableNumber={tableInfo.tableNumber}
+                              orders={orders}/>
     </div>
 );
 
