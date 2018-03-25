@@ -54,9 +54,9 @@ const AddButton = onClick => (
 
 const Order = ({order, onSubtract, onAdd}) => (
     <div className="OrderItem">
-        <SubtractButton onClick={onSubtract}/>
+        <SubtractButton onClick={() => onSubtract(order.food_id)}/>
         <ListItem primaryText={order.food_id} secondaryText={`Quantity: ${order.qty}, Price: ${order.price}`}/>
-        <AddButton onClick={onAdd}/>
+        <AddButton onClick={() => onAdd(order.food_id)}/>
     </div>
 );
 const ConfirmedOrder = ({order}) => (

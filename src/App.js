@@ -82,6 +82,8 @@ class App extends Component {
         this.onSelectPage = this.onSelectPage.bind(this);
         this.onQrScan = this.onQrScan.bind(this);
         this.onQrError = this.onQrError.bind(this);
+        this.onAdd = this.onAdd.bind(this);
+        this.onSubtract = this.onSubtract.bind(this);
     }
 
     onSelectPage(index) {
@@ -143,6 +145,14 @@ class App extends Component {
         this.setState({order});
     }
 
+    onAdd(food_id){
+
+    }
+
+    onSubtract(food_id){
+
+    }
+
     onQrScan(data) {
         if (data) {
             let parsedData = parseScanData(data);
@@ -182,7 +192,9 @@ class App extends Component {
             case 0:
             case 2:
             default:
-                appBody = <OrderPlacer orders={orders} tableInfo={this.tableInfo} confirmed={confirmed}/>;
+                appBody = <OrderPlacer orders={orders} tableInfo={this.tableInfo} confirmed={confirmed}
+                                       onSubtract={this.onSubtract}
+                                       onAdd={this.onAdd}/>;
         }
 
         return (
