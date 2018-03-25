@@ -64,7 +64,6 @@ class App extends Component {
             }
         };
 
-        this.onTextChange = this.onTextChange.bind(this);
         this.onPayClick = this.onPayClick.bind(this);
         this.promisePostOrder = this.promisePostOrder.bind(this);
         this.mockPromisePostOrder = this.mockPromisePostOrder.bind(this);
@@ -108,12 +107,6 @@ class App extends Component {
         return fetch(orderEndPoint, options);
     }
 
-    onTextChange(e) {
-        let text = e.target.value;
-        this.setState({text});
-        this.setTableId(text);
-    }
-
     setTableId(table_id) {
         let order = this.state.order;
         order.table_id = table_id;
@@ -145,6 +138,10 @@ class App extends Component {
             if (parsedData.isValid) {
                 this.addFood(parsedData.data.food_id, parsedData.data.price, "");
                 this.setState({selectedPage: 0});
+            } else {
+                if ('data' in parsedData) {
+                    this.setState({text: parsedData.data});
+                }
             }
             console.log(data);
         }
@@ -161,7 +158,7 @@ class App extends Component {
 
         switch (this.state.selectedPage) {
             case 1:
-                appBody = <QrCodeScanner onQrScan={this.onQrScan} onQrError={this.onQrError}/>;
+                appBody = <QrCodeScanner onQrScan={this.onQrScan} onQrError={this.onQrError} text={this.state.text}/>;
                 break;
             default:
                 appBody = <OrderPlacer orders={orders} tableInfo={this.tableInfo}/>;

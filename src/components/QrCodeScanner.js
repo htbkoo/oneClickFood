@@ -23,6 +23,7 @@ const QrCodeScanner = props => (
             onScan={props.onQrScan}
             facingMode="rear"
         />
+        {`QR Code: ${props.text}`}
     </div>
 );
 
