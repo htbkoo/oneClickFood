@@ -32,11 +32,7 @@ const RestaurantInfoHeader = props => (
 );
 
 const AddButton = () => (
-    <IconButton
-        touch={true}
-        tooltip="more"
-        tooltipPosition="bottom-left"
-    >
+    <IconButton touch={true}>
         <AddCircleOutline/>
     </IconButton>
 );
