@@ -31,6 +31,12 @@ const RestaurantInfoHeader = props => (
     </div>
 );
 
+const SubtractButton = () => (
+    <IconButton touch={true}>
+        <RemoveCircleOutline/>
+    </IconButton>
+);
+
 const AddButton = () => (
     <IconButton touch={true}>
         <AddCircleOutline/>
@@ -47,10 +53,11 @@ const AddButton = () => (
 */
 
 const Order = ({order}) => (
-    <ListItem primaryText={order.food_id} secondaryText={`Quantity: ${order.qty}, Price: ${order.price}`}
-              leftIcon={<RemoveCircleOutline/>}
-              rightIconButton={<AddButton/>}
-    />
+    <div>
+        <SubtractButton/>
+        <ListItem primaryText={order.food_id} secondaryText={`Quantity: ${order.qty}, Price: ${order.price}`}/>
+        <AddButton/>
+    </div>
 );
 const ConfirmedOrder = ({order}) => (
     <ListItem primaryText={order.food_id} secondaryText={`Quantity: ${order.qty}, Price: ${order.price}`}
