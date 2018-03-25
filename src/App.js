@@ -59,8 +59,17 @@ class App extends Component {
             order: {
                 table_id: JSON.stringify(this.tableInfo),
                 foods: {
-                    all_food_ids: [],
-                    foods_details: {}
+                    all_food_ids: [
+                        // "food"
+                    ],
+                    foods_details: {
+                        // "food": {
+                        //     'food_id': "food",
+                        //     'qty': 1,
+                        //     'price': 1,
+                        //     'remark': ""
+                        // }
+                    }
                 }
             }
         };
@@ -159,7 +168,7 @@ class App extends Component {
     render() {
         let appBody;
         let orders = this.state.order.foods.all_food_ids.map(id => this.state.order.foods.foods_details[id]);
-        let confirmed = this.state.selectedPage===2;
+        let confirmed = this.state.selectedPage === 2;
         let optionalPayButton = confirmed ? "" : (
             <div className="payButton">
                 <RaisedButton label="Confirm" primary={true} onClick={this.onPayClick}/>
@@ -189,7 +198,8 @@ class App extends Component {
                 </div>
                 <div className="app-footer">
                     {optionalPayButton}
-                    <FooterBar onSelectPage={this.onSelectPage} selectedPage={this.state.selectedPage} confirmed={confirmed}/>
+                    <FooterBar onSelectPage={this.onSelectPage} selectedPage={this.state.selectedPage}
+                               confirmed={confirmed}/>
                 </div>
             </div>
         );
