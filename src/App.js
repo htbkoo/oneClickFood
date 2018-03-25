@@ -54,7 +54,6 @@ class App extends Component {
         this.state = {
             selectedPage: 0,
             text: "",
-            appTitle,
             order: {
                 table_id: JSON.stringify(this.tableInfo),
                 foods: {
