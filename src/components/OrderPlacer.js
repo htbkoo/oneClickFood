@@ -23,7 +23,7 @@ const RestaurantInfoHeader = props => (
             </CardMedia>
             <CardTitle title="Your order:" subtitle=""/>
             <CardText>
-                <Orders orders={props.orders} confirmed={props.confirmed}/>
+                <Orders orders={props.orders} confirmed={props.confirmed} onSubtract={props.onSubtract} onAdd={onAdd}/>
                 <Divider/>
                 <TotalAmount orders={props.orders}/>
             </CardText>
@@ -31,14 +31,14 @@ const RestaurantInfoHeader = props => (
     </div>
 );
 
-const SubtractButton = () => (
-    <IconButton touch={true}>
+const SubtractButton = onClick => (
+    <IconButton touch={true} onClick={onClick}>
         <RemoveCircleOutline/>
     </IconButton>
 );
 
-const AddButton = () => (
-    <IconButton touch={true}>
+const AddButton = onClick => (
+    <IconButton touch={true} onClick={onClick}>
         <AddCircleOutline/>
     </IconButton>
 );
@@ -52,11 +52,11 @@ const AddButton = () => (
 }
 */
 
-const Order = ({order}) => (
+const Order = ({order, onSubtract, onAdd}) => (
     <div className="OrderItem">
-        <SubtractButton/>
+        <SubtractButton onClick={onSubtract}/>
         <ListItem primaryText={order.food_id} secondaryText={`Quantity: ${order.qty}, Price: ${order.price}`}/>
-        <AddButton/>
+        <AddButton onClick={onAdd}/>
     </div>
 );
 const ConfirmedOrder = ({order}) => (
@@ -64,9 +64,9 @@ const ConfirmedOrder = ({order}) => (
               leftIcon={<ActionInfo/>}/>
 );
 
-const Orders = ({orders, confirmed}) => {
+const Orders = ({orders, confirmed, onSubtract, onAdd}) => {
     let orderComponents = orders.map(order =>
-        confirmed ? <ConfirmedOrder order={order}/> : <Order order={order}/>
+        confirmed ? <ConfirmedOrder order={order}/> : <Order order={order} onSubtract={onSubtract} onAdd={onAdd}/>
     );
     return (
         <List>
@@ -84,11 +84,13 @@ const TotalAmount = ({orders}) => {
     );
 };
 
-const OrderPlacer = ({tableInfo, orders, confirmed}) => (
+const OrderPlacer = ({tableInfo, orders, confirmed, onSubtract, onAdd}) => (
     <div className="OrderPlacer">
         <RestaurantInfoHeader restaurantName={tableInfo.restaurantName} tableNumber={tableInfo.tableNumber}
                               orders={orders}
-                              confirmed={confirmed}/>
+                              confirmed={confirmed}
+                              onSubtract={onSubtract}
+                              onAdd={onAdd}/>
     </div>
 );
 
