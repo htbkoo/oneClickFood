@@ -5,6 +5,8 @@ import {Card, CardMedia, CardText, CardTitle} from 'material-ui/Card';
 import {List, ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import ActionInfo from 'material-ui/svg-icons/action/info';
+import AddCircleOutline from 'material-ui/svg-icons/content/add-circle-outline';
+import RemoveCircleOutline from 'material-ui/svg-icons/content/remove-circle-outline';
 
 import '../css/OrderPlacer.css';
 
@@ -37,8 +39,10 @@ const RestaurantInfoHeader = props => (
 }
 */
 const Order = ({order}) => (
-    <ListItem secondaryText={order.food_id} primaryText={`Quantity: ${order.qty}, Price: ${order.price}`}
-              leftIcon={<ActionInfo/>}/>
+    <ListItem primaryText={order.food_id} secondaryText={`Quantity: ${order.qty}, Price: ${order.price}`}
+              leftIcon={<RemoveCircleOutline/>}
+              rightIcon={<AddCircleOutline/>}
+    />
 );
 const ConfirmedOrder = ({order}) => (
     <ListItem primaryText={order.food_id} secondaryText={`Quantity: ${order.qty}, Price: ${order.price}`}
