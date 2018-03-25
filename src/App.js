@@ -26,7 +26,7 @@ const parseScanData = rawData => {
         }
     } catch (error) {
         console.log(error);
-        return {isValid: false};
+        return {isValid: false, data: rawData};
     }
 
     function hasMandatoryData(data) {
@@ -52,7 +52,7 @@ class App extends Component {
         this.tableInfo = props.tableInfo;
 
         this.state = {
-            selectedPage: 0,
+            selectedPage: 1,
             text: "",
             order: {
                 table_id: JSON.stringify(this.tableInfo),
@@ -143,6 +143,8 @@ class App extends Component {
                 }
             }
             console.log(data);
+        } else {
+            this.setState({text: data});
         }
     }
 
