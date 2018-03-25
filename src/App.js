@@ -115,7 +115,7 @@ class App extends Component {
     addFood(food_id, price, remark) {
         let order = this.state.order;
         if (food_id in order.foods.foods_details) {
-            order.foods.foods_details.qty++;
+            order.foods.foods_details[food_id].qty++;
             if (typeof remark !== "undefined") {
                 order.foods.foods_details.remark = remark;
             }
