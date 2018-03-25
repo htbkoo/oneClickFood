@@ -79,6 +79,7 @@ class App extends Component {
         this.mockPromisePostOrder = this.mockPromisePostOrder.bind(this);
         this.setTableId = this.setTableId.bind(this);
         this.addFood = this.addFood.bind(this);
+        this.removeFood = this.removeFood.bind(this);
         this.onSelectPage = this.onSelectPage.bind(this);
         this.onQrScan = this.onQrScan.bind(this);
         this.onQrError = this.onQrError.bind(this);
@@ -145,14 +146,28 @@ class App extends Component {
         this.setState({order});
     }
 
-    onAdd(food_id){
+    removeFood(food_id) {
+        let order = this.state.order;
+        delete order.foods.foods_details[food_id];
+        order.foods.all_food_ids = order.foods.all_food_ids.filter(id => id !== food_id);
+        this.setState({order});
+    }
+
+    onAdd(food_id) {
         let order = this.state.order;
         order.foods.foods_details[food_id].qty++;
         this.setState({order});
     }
 
-    onSubtract(food_id){
-
+    onSubtract(food_id) {
+        let order = this.state.order;
+        let qty = order.foods.foods_details[food_id].qty;
+        if (qty <= 1) {
+            this.removeFood(food_id);
+        } else {
+            order.foods.foods_details[food_id].qty--;
+        }
+        this.setState({order});
     }
 
     onQrScan(data) {
