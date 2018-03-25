@@ -21,6 +21,7 @@ const QrCodeScanner = props => (
             maxImageSize={300}
             onError={props.onQrError}
             onScan={props.onQrScan}
+            facingMode="rear"
         />
     </div>
 );
