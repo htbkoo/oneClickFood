@@ -6,7 +6,7 @@ import App from './App';
 
 import './css/Router.css';
 
-let tableInfo = {restaurantName: "One Click Food Cafe", tableNumber: 1};
+let tableInfo = {restaurantName: "譚仔 (數碼港)", tableNumber: 1};
 
 const Home = () => (
     <MuiThemeProvider>
