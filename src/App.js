@@ -7,7 +7,10 @@ import FooterBar from "./components/FooterBar";
 import './css/App.css';
 import QrCodeScanner from "./components/QrCodeScanner";
 
-const appTitle = "One Click Food";
+const appTitles = [
+    "One Click Food",
+    "Scan Your Food"
+];
 const orderEndPoint = "order";
 
 const parseScanData = rawData => {
@@ -168,7 +171,7 @@ class App extends Component {
             <div className="App">
                 <div className="app-bar">
                     <AppBar
-                        title={this.state.appTitle}
+                        title={appTitles[this.state.selectedPage]}
                         iconClassNameRight="muidocs-icon-navigation-expand-more"
                     />
                 </div>
