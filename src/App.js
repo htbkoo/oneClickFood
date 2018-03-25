@@ -46,12 +46,14 @@ class App extends Component {
 			'remark': x
 		}
 		*/
+        this.tableInfo = props.tableInfo;
+
         this.state = {
-            selectedPage: 1,
+            selectedPage: 0,
             text: "",
             appTitle,
             order: {
-                table_id: props.table_id,
+                table_id: JSON.stringify(this.tableInfo),
                 foods: {
                     all_food_ids: [],
                     foods_details: {}
@@ -158,7 +160,7 @@ class App extends Component {
                 appBody = <QrCodeScanner onQrScan={this.onQrScan} onQrError={this.onQrError}/>;
                 break;
             default:
-                appBody = <OrderPlacer order={this.state.order}/>;
+                appBody = <OrderPlacer order={this.state.order} tableInfo={this.tableInfo}/>;
         }
 
         return (
