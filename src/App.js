@@ -9,7 +9,8 @@ import QrCodeScanner from "./components/QrCodeScanner";
 
 const appTitles = [
     "One Click Food",
-    "Scan Your Food"
+    "Scan Your Food",
+    "Enjoy Your Food"
 ];
 const orderEndPoint = "order";
 
