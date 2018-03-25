@@ -20,7 +20,7 @@ const RestaurantInfoHeader = props => (
             </CardMedia>
             <CardTitle title="Your order:" subtitle=""/>
             <CardText>
-                <Orders orders={props.orders}/>
+                <Orders orders={props.orders} confirmed={props.confirmed}/>
                 <Divider/>
                 <TotalAmount orders={props.orders}/>
             </CardText>
@@ -37,14 +37,18 @@ const RestaurantInfoHeader = props => (
 }
 */
 const Order = ({order}) => (
+    <ListItem secondaryText={order.food_id} primaryText={`Quantity: ${order.qty}, Price: ${order.price}`}
+              leftIcon={<ActionInfo/>}/>
+);
+const ConfirmedOrder = ({order}) => (
     <ListItem primaryText={order.food_id} secondaryText={`Quantity: ${order.qty}, Price: ${order.price}`}
               leftIcon={<ActionInfo/>}/>
 );
 
-const Orders = ({orders}) => {
-    let orderComponents = orders.map(order => (
-        <Order order={order}/>
-    ));
+const Orders = ({orders, confirmed}) => {
+    let orderComponents = orders.map(order =>
+        confirmed ? <ConfirmedOrder order={order}/> : <Order order={order}/>
+    );
     return (
         <List>
             {orderComponents}
@@ -61,10 +65,11 @@ const TotalAmount = ({orders}) => {
     );
 };
 
-const OrderPlacer = ({tableInfo, orders}) => (
+const OrderPlacer = ({tableInfo, orders, confirmed}) => (
     <div className="OrderPlacer">
         <RestaurantInfoHeader restaurantName={tableInfo.restaurantName} tableNumber={tableInfo.tableNumber}
-                              orders={orders}/>
+                              orders={orders}
+                              confirmed={confirmed}/>
     </div>
 );
 
