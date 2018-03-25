@@ -23,7 +23,7 @@ const RestaurantInfoHeader = props => (
             </CardMedia>
             <CardTitle title="Your order:" subtitle=""/>
             <CardText>
-                <Orders orders={props.orders} confirmed={props.confirmed} onSubtract={props.onSubtract} onAdd={onAdd}/>
+                <Orders orders={props.orders} confirmed={props.confirmed} onSubtract={props.onSubtract} onAdd={props.onAdd}/>
                 <Divider/>
                 <TotalAmount orders={props.orders}/>
             </CardText>
