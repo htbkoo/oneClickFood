@@ -42,7 +42,8 @@ const RestaurantInfoHeader = props => (
 }
 */
 const Order = ({order}) => (
-    <ListItem primaryText="Inbox" leftIcon={<ContentInbox/>}/>
+    <ListItem primaryText={order.food_id} secondaryText={`Quantity: ${order.qty}, Price: ${order.price}`}
+              leftIcon={<ActionInfo/>}/>
 );
 
 const Orders = ({orders}) => {
