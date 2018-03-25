@@ -53,7 +53,7 @@ const AddButton = () => (
 */
 
 const Order = ({order}) => (
-    <div>
+    <div className="OrderItem">
         <SubtractButton/>
         <ListItem primaryText={order.food_id} secondaryText={`Quantity: ${order.qty}, Price: ${order.price}`}/>
         <AddButton/>
