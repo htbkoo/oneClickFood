@@ -158,7 +158,7 @@ class App extends Component {
     render() {
         let appBody;
         let orders = this.state.order.foods.all_food_ids.map(id => this.state.order.foods.foods_details[id]);
-        let confirmed = this.state.confirmed;
+        let confirmed = this.state.selectedPage===2;
         let optionalPayButton = confirmed ? "" : (
             <div className="payButton">
                 <RaisedButton label="Proceed to pay" primary={true} onClick={this.onPayClick}/>
